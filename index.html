@@ -33,6 +33,7 @@
       image: user.picture,
     };
 console.log(profile)
+window.top.postMessage({type: 'googleOneTouchProfile', response: profile}, "*")
     // Return profile data through callback if exists
 //     try {
 //       window.callback(profile);
