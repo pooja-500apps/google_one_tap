@@ -13,16 +13,16 @@
       await google.accounts.id.initialize({
         client_id: "285654233185-2q7fsfhb8obakjdtb9cdal06ug8s21d8.apps.googleusercontent.com",
         cancel_on_tap_outside: false,
-        callback: handleOneTouchResponse,
+        callback: handleOneTapResponse,
       });
 
-      // Load Google One Touch UI
+      // Load Google One Tap UI
       await google.accounts.id.prompt();
     }
 
-    function handleOneTouchResponse(data) {
+    function handleOneTapResponse(data) {
 
-      // Decode google one touch token
+      // Decode google one tap token
       let user = parseJwt(data.credential);
 
       let profile = {
@@ -32,7 +32,7 @@
         image: user.picture,
       };
 
-      window.top.postMessage({ type: 'googleOneTouchProfile', response: profile }, "*")
+      window.top.postMessage({ type: 'googleOneTapProfile', response: profile }, "*")
     }
 
     function parseJwt(token) {
