@@ -2,62 +2,51 @@
 <html>
 
 <head>
-    <title>Google</title>
+  <title>Google</title>
 </head>
 
 <body>
-    <script type="text/javascript">
+  <script type="text/javascript">
 
+    async function initClient() {
 
-        async function initClient() {
-            console.log("in google");
-             await google.accounts.id.initialize({
-      client_id: "285654233185-2q7fsfhb8obakjdtb9cdal06ug8s21d8.apps.googleusercontent.com",
-      cancel_on_tap_outside: false,
-      callback: handleOneTouchResponse,
-    });
+      await google.accounts.id.initialize({
+        client_id: "285654233185-2q7fsfhb8obakjdtb9cdal06ug8s21d8.apps.googleusercontent.com",
+        cancel_on_tap_outside: false,
+        callback: handleOneTouchResponse,
+      });
 
-    // Load Google One Touch UI
-    await google.accounts.id.prompt();
-        }
-        
-        function handleOneTouchResponse(data) {
+      // Load Google One Touch UI
+      await google.accounts.id.prompt();
+    }
 
-    // Decode google one touch token
-    let user = parseJwt(data.credential);
+    function handleOneTouchResponse(data) {
 
-    let profile = {
-      id: user.sub,
-      name: user.name,
-      email: user.email,
-      image: user.picture,
-    };
-console.log(profile)
-window.top.postMessage({type: 'googleOneTouchProfile', response: profile}, "*")
-    // Return profile data through callback if exists
-//     try {
-//       window.callback(profile);
-//     } catch (error) {
-//       console.log(error);
-//     }
+      // Decode google one touch token
+      let user = parseJwt(data.credential);
 
-    // Return profile so that promise can be used while calling authenticate. Both callback and promise will work this way.
-//     return profile;
-  }
-        
-        function parseJwt (token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      let profile = {
+        id: user.sub,
+        name: user.name,
+        email: user.email,
+        image: user.picture,
+      };
+
+      window.top.postMessage({ type: 'googleOneTouchProfile', response: profile }, "*")
+    }
+
+    function parseJwt(token) {
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+      }).join(''));
 
-    return JSON.parse(jsonPayload);
-};
-
-    </script>
-    <script async defer src="https://accounts.google.com/gsi/client" onload="this.onload=function(){};initClient()"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+      return JSON.parse(jsonPayload);
+    };
+  </script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="this.onload=function(){};initClient()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </body>
 
 </html>
