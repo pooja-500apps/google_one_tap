@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Google</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+
+
+        async function initClient() {
+             await google.accounts.id.initialize({
+      client_id: "285654233185-2q7fsfhb8obakjdtb9cdal06ug8s21d8.apps.googleusercontent.com",
+      cancel_on_tap_outside: false,
+      callback: window._AppletIO.getSSO().handleOneTouchResponse,
+    });
+
+    // Load Google One Touch UI
+    await google.accounts.id.prompt();
+        }
+
+    </script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="this.onload=function(){};initClient()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+</body>
+
+</html>
