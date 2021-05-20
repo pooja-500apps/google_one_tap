@@ -32,7 +32,7 @@
         image: user.picture,
       };
 
-      window.top.postMessage({ type: 'googleOneTapProfile', response: profile }, "*")
+      window.top.postMessage({ type: 'googleOneTapProfile', response: {data: profile} }, "*")
     }
 
     function parseJwt(token) {
