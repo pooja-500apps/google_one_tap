@@ -17,12 +17,14 @@
       });
 
       // Load Google One Tap UI
-      await google.accounts.id.prompt((event) => console.log(event));
+      await google.accounts.id.prompt((event) => closeOneTap(event));
+    }
+    
+    function closeOneTap(data) {
+      if(data.l && data.l == "user_cancel") document.getElementById("500apps_plugin_google_onetap").remove();
     }
 
     function handleOneTapResponse(data) {
-      
-      console.log(data);
 
       // Decode google one tap token
       let user = parseJwt(data.credential);
