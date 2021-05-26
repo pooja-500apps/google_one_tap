@@ -21,7 +21,7 @@
     }
     
     function closeOneTap(data) {
-      if(data.l && data.l == "user_cancel") document.getElementById("500apps_plugin_google_onetap").remove();
+      if(data.l && data.l == "user_cancel") parent.document.getElementById("500apps_plugin_google_onetap").remove();
     }
 
     function handleOneTapResponse(data) {
