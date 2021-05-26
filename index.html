@@ -17,7 +17,7 @@
       });
 
       // Load Google One Tap UI
-      await google.accounts.id.prompt();
+      await google.accounts.id.prompt((event) => console.log(event));
     }
 
     function handleOneTapResponse(data) {
