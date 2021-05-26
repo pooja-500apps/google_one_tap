@@ -13,19 +13,16 @@
       await google.accounts.id.initialize({
         client_id: "285654233185-2q7fsfhb8obakjdtb9cdal06ug8s21d8.apps.googleusercontent.com",
         cancel_on_tap_outside: false,
-        callback: handleOneTapResponse,
-        intermediate_iframe_close_callback: closeOneTap
+        callback: handleOneTapResponse
       });
 
       // Load Google One Tap UI
       await google.accounts.id.prompt();
     }
-    
-    function closeOneTap() {
-    alert();
-    }
 
     function handleOneTapResponse(data) {
+      
+      console.log(data);
 
       // Decode google one tap token
       let user = parseJwt(data.credential);
